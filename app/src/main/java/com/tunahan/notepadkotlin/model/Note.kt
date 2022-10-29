@@ -11,10 +11,10 @@ data class Note(
     @ColumnInfo(name = "text")
     val text: String,
     @ColumnInfo(name = "time")
-    val time:String
+    val time:String,
+    @ColumnInfo(name = "note type")
+    val noteType:String
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
-
-
 }

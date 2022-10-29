@@ -2,20 +2,23 @@ package com.tunahan.notepadkotlin.view
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
-import androidx.core.view.MenuHost
 import androidx.fragment.app.Fragment
-import androidx.core.view.MenuProvider
-import androidx.lifecycle.Lifecycle
 import androidx.navigation.Navigation
-import com.tunahan.notepadkotlin.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.tunahan.notepadkotlin.adapter.NoteArrayAdapter
+import com.tunahan.notepadkotlin.adapter.NotepadAdapter
 import com.tunahan.notepadkotlin.databinding.FragmentMainBinding
+import com.tunahan.notepadkotlin.model.Note
+import com.tunahan.notepadkotlin.util.NoteTypes
 
 
-class MainFragment : Fragment(),MenuProvider {
+class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
+
+    private val notepadAdapter = NotepadAdapter(arrayListOf())
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,13 +30,17 @@ class MainFragment : Fragment(),MenuProvider {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
-        val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setupCustomSpinner()
+
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = notepadAdapter
+
 
         binding.floatingActionButton.setOnClickListener {
             val action = MainFragmentDirections.actionMainFragmentToNoteFragment()
@@ -41,23 +48,14 @@ class MainFragment : Fragment(),MenuProvider {
         }
     }
 
+    private fun setupCustomSpinner() {
+        val adapter = NoteArrayAdapter(requireContext(), NoteTypes.Notes.list!!)
+        binding.spinner2.adapter = adapter
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.search_menu,menu)
-    }
-
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        when(menuItem.itemId){
-            R.id.serch_item ->{
-                Toast.makeText(requireContext(),"search", Toast.LENGTH_SHORT).show()}
-
-
-        }
-        return true
     }
 
 

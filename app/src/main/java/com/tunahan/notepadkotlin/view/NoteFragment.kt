@@ -1,25 +1,19 @@
 package com.tunahan.notepadkotlin.view
 
-import android.Manifest
-import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.*
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import com.google.android.material.snackbar.Snackbar
 import com.tunahan.notepadkotlin.R
+import com.tunahan.notepadkotlin.adapter.NoteArrayAdapter
 import com.tunahan.notepadkotlin.databinding.FragmentNoteBinding
+import com.tunahan.notepadkotlin.util.NoteTypes
 
 
 class NoteFragment : Fragment(),MenuProvider {
@@ -49,6 +43,13 @@ class NoteFragment : Fragment(),MenuProvider {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setupCustomSpinner()
+    }
+
+    private fun setupCustomSpinner() {
+        val adapter = NoteArrayAdapter(requireContext(), NoteTypes.Notes.list!!)
+        binding.spinner.adapter = adapter
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
