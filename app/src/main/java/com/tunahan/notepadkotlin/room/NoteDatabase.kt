@@ -5,30 +5,33 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.tunahan.notepadkotlin.model.Note
+import com.tunahan.notepadkotlin.util.DATABASE_NAME
 
-@Database(entities = [Note::class], version = 1)
+@Database(entities = [Note::class], version = 1, exportSchema = false)
 abstract class NoteDatabase : RoomDatabase() {
 
     abstract fun NoteDao(): NoteDao
 
-    //singleton
+    companion object {
 
-    companion object{
+        @Volatile
+        private var INSTANCE: NoteDatabase? = null
 
-        @Volatile private var instance : NoteDatabase? = null
+        fun getDatabase(context: Context): NoteDatabase {
 
-        private val lock = Any()
-
-        operator fun invoke(context: Context) = instance ?: synchronized(lock){
-            instance ?: makeDatabase(context).also {
-                instance = it
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    NoteDatabase::class.java,
+                    DATABASE_NAME
+                ).build()
+                INSTANCE = instance
+                instance
             }
+
 
         }
 
-        private fun makeDatabase(context: Context) = Room.databaseBuilder(
-            context.applicationContext,NoteDatabase::class.java,"countrydatabase"
-        ).build()
 
     }
 }

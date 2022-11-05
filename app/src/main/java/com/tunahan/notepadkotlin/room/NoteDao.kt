@@ -7,34 +7,15 @@ import com.tunahan.notepadkotlin.model.Note
 @Dao
 interface NoteDao {
 
-
-    @Query("SELECT * FROM note")
-    suspend fun getAll(): List<Note>
-
-    @Query("SELECT * FROM note WHERE id IN (:noteIds)")
-    suspend fun loadAllByIds(noteIds: IntArray): List<Note>
-
-    @Insert
-    suspend fun insertAll(vararg note: Note)
-
-    @Update
-    suspend fun Update(note: Note)
-
-    @Delete
-    suspend fun delete(note: Note)
-
-
-/*
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(note: Note)
 
-    @Update
-    suspend fun update(note: Note)
-
     @Delete
     suspend fun delete(note: Note)
 
-    @Query("SELECT * FROM note order by id ASC")
+    @Query("SELECT * FROM notes_table order by id ASC")
     fun getAllNotes(): LiveData<List<Note>>
- */
+
+    @Query("UPDATE notes_table Set title = :title,text=:text WHERE id = :id")
+    suspend fun update(id: Int?, title: String?, text: String?)
 }

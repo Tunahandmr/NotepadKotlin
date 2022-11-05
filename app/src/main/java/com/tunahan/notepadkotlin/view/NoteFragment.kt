@@ -1,6 +1,7 @@
 package com.tunahan.notepadkotlin.view
 
 import android.content.Intent
+import android.database.sqlite.SQLiteDatabase
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
@@ -10,20 +11,25 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.get
 import com.tunahan.notepadkotlin.R
 import com.tunahan.notepadkotlin.adapter.NoteArrayAdapter
 import com.tunahan.notepadkotlin.databinding.FragmentNoteBinding
+import com.tunahan.notepadkotlin.model.Note
 import com.tunahan.notepadkotlin.util.NoteTypes
+import com.tunahan.notepadkotlin.viewmodel.NoteViewModel
 
 
-class NoteFragment : Fragment(),MenuProvider {
+abstract class NoteFragment : Fragment()/*,MenuProvider*/ {
 
     private var _binding: FragmentNoteBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
-    private lateinit var permissionLauncher: ActivityResultLauncher<String>
-    var selectedPicture: Uri? = null
+    private lateinit var viewModel: NoteViewModel
+    private var myUuid = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,13 +42,26 @@ class NoteFragment : Fragment(),MenuProvider {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNoteBinding.inflate(inflater, container, false)
-        val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        //val menuHost: MenuHost = requireActivity()
+        // menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.saveButton.setOnClickListener {
+            save(it)
+        }
+
+        arguments?.let {
+            myUuid = NoteFragmentArgs.fromBundle(it).uuid
+        }
+
+        viewModel = ViewModelProvider(this)[NoteViewModel::class.java]
+        //viewModel.allNotes(myUuid)
+
+        //observeLiveData()
 
         setupCustomSpinner()
     }
@@ -52,6 +71,31 @@ class NoteFragment : Fragment(),MenuProvider {
         binding.spinner.adapter = adapter
     }
 
+    private fun save(view: View){
+        val title = binding.titleEditText.text.toString()
+        val text = binding.bodyEditText.text.toString()
+
+        val note = Note(title,text,"pazartesi",1)
+
+    }
+/*
+    private fun observeLiveData(){
+
+        viewModel.noteLiveData.observe(viewLifecycleOwner,Observer{note->
+            note?.let {
+
+                binding.titleEditText.text = note.title
+                binding.bodyEditText.text = note.text
+                binding.spinner.
+            }
+
+
+
+        })
+    }
+
+ */
+/*
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.my_menu,menu)
 
@@ -65,6 +109,8 @@ class NoteFragment : Fragment(),MenuProvider {
         }
         return true
         }
+
+ */
 
 
     override fun onDestroyView() {

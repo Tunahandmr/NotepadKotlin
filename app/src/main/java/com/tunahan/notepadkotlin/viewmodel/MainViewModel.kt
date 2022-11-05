@@ -14,6 +14,16 @@ import kotlin.coroutines.CoroutineContext
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
+    val notes = MutableLiveData<List<Note>>()
+
+    private fun getDataFromSQLite(uuid: Int) {
+       // val notes = NoteDatabase(getApplication()).NoteDao().getAll(uuid)
+        //showCountries(notes)
+    }
+
+    private fun showCountries(noteList: List<Note>) {
+        notes.value = noteList
+    }
 
 
 }
