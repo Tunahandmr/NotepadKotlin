@@ -1,58 +1,57 @@
 package com.tunahan.notepadkotlin.view
 
 import android.app.Activity
-import android.app.Application
 import android.os.Bundle
-import android.provider.CalendarContract.Instances
 import android.view.*
-import android.widget.SearchView
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.tunahan.notepadkotlin.R
+import com.tunahan.notepadkotlin.adapter.ListAdapter
 import com.tunahan.notepadkotlin.adapter.NoteArrayAdapter
-import com.tunahan.notepadkotlin.adapter.NotepadAdapter
 import com.tunahan.notepadkotlin.databinding.FragmentMainBinding
 import com.tunahan.notepadkotlin.model.Note
+import com.tunahan.notepadkotlin.room.NoteDao
 import com.tunahan.notepadkotlin.room.NoteDatabase
 import com.tunahan.notepadkotlin.util.NoteTypes
 import com.tunahan.notepadkotlin.viewmodel.NoteViewModel
+import kotlinx.android.synthetic.main.fragment_main.view.*
 
 
 class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-    private lateinit var database: NoteDatabase
-    lateinit var viewModel: NoteViewModel
-    lateinit var adapter: NotepadAdapter
-    lateinit var selectedNote: Note
 
-    private val updateNote = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){result->
-        if (result.resultCode==Activity.RESULT_OK){
-            val note=result.data?.getSerializableExtra("note") as? Note
-
-            if (note!=null){
-
-                viewModel.updateNote(note)
-            }
-        }
-    }
+    private lateinit var mNoteViewModel: NoteViewModel
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
-        return binding.root
+        val view = binding.root
+
+        //recyclerview
+        val adapter = ListAdapter()
+        val recyclerView = view.recyclerView
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        //viewmodel
+        mNoteViewModel = ViewModelProvider(this)[NoteViewModel::class.java]
+        mNoteViewModel.readAllData.observe(viewLifecycleOwner, Observer { note->
+            adapter.setData(note)
+
+        })
+        return view
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,12 +59,15 @@ class MainFragment : Fragment() {
 
         setupCustomSpinner()
 
-
         binding.floatingActionButton.setOnClickListener {
             val action = MainFragmentDirections.actionMainFragmentToNoteFragment()
             Navigation.findNavController(it).navigate(action)
+           // findNavController().navigate(R.id.action_mainFragment_to_noteFragment)
         }
+
+
     }
+
 
 
     private fun setupCustomSpinner() {
@@ -77,6 +79,7 @@ class MainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
     }
 
 

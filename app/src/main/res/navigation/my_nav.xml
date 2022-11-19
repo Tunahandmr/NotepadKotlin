@@ -8,7 +8,8 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.tunahan.notepadkotlin.view.MainFragment"
-        android:label="MainFragment" >
+        android:label="List"
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_noteFragment"
             app:destination="@id/noteFragment" />
@@ -16,17 +17,11 @@
     <fragment
         android:id="@+id/noteFragment"
         android:name="com.tunahan.notepadkotlin.view.NoteFragment"
-        android:label="NoteFragment" >
+        android:label="Note"
+        tools:layout="@layout/fragment_note">
         <action
             android:id="@+id/action_noteFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
-        <argument
-            android:name="uuid"
-            app:argType="integer"
-            android:defaultValue="0" />
-        <argument
-            android:name="info"
-            app:argType="string"
-            android:defaultValue="xx" />
+
     </fragment>
 </navigation>
