@@ -26,7 +26,7 @@ class NoteFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentNoteBinding.inflate(inflater, container, false)
 
         mNoteViewModel = ViewModelProvider(this)[NoteViewModel::class.java]
@@ -42,7 +42,7 @@ class NoteFragment : Fragment() {
 
         if (inputCheck(title,note)){
             //create note object
-            val notes = Note(title,note,"august",0)
+            val notes = Note(0,title,note,"august",0)
             //add data to database
             mNoteViewModel.addNote(notes)
             Toast.makeText(requireContext(),"added succesfully",Toast.LENGTH_SHORT).show()
@@ -64,8 +64,6 @@ class NoteFragment : Fragment() {
         binding.backButton.setOnClickListener {
             findNavController().navigate(R.id.action_noteFragment_to_mainFragment)
         }
-
-
         setupCustomSpinner()
     }
 

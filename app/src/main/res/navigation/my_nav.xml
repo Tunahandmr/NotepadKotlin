@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_mainFragment_to_noteFragment"
             app:destination="@id/noteFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
     </fragment>
     <fragment
         android:id="@+id/noteFragment"
@@ -23,5 +26,17 @@
             android:id="@+id/action_noteFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.tunahan.notepadkotlin.view.UpdateFragment"
+        android:label="fragment_update"
+        tools:layout="@layout/fragment_update" >
+        <action
+            android:id="@+id/action_updateFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <argument
+            android:name="currentNote"
+            app:argType="com.tunahan.notepadkotlin.model.Note" />
     </fragment>
 </navigation>
