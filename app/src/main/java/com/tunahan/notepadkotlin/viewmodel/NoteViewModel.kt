@@ -6,9 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.tunahan.notepadkotlin.model.Note
+import com.tunahan.notepadkotlin.room.NoteDao
 import com.tunahan.notepadkotlin.room.NoteDatabase
 import com.tunahan.notepadkotlin.util.NoteRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 
 
@@ -16,6 +20,8 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
 
     val readAllData: LiveData<List<Note>>
     private val repository: NoteRepository
+
+
 
     init {
         val noteDao = NoteDatabase.getDatabase(application).noteDao()
@@ -40,5 +46,8 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
             repository.deleteNote(note)
         }
     }
+
+    fun searchNote(query:String?)=repository.searchNote(query)
+
 
 }
