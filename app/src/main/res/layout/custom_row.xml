@@ -1,33 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/row_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="3dp"
     android:layout_margin="4dp"
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground"
-    android:id="@+id/row_layout">
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-    <TextView
-        android:id="@+id/title_id"
-        android:layout_marginStart="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Title"
-        android:textSize="26sp"/>
 
-    <TextView
-        android:id="@+id/note_id"
-        android:layout_marginStart="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Note"
-        android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/title_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Title"
+            android:textSize="22sp" />
+
+
+        <TextView
+            android:id="@+id/note_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Note"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/date_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="date"
+            android:textSize="10sp" />
+
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>

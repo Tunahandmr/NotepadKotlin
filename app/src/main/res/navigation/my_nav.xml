@@ -34,7 +34,9 @@
         tools:layout="@layout/fragment_update" >
         <action
             android:id="@+id/action_updateFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:launchSingleTop="false"
+            app:popUpToInclusive="false" />
         <argument
             android:name="currentNote"
             app:argType="com.tunahan.notepadkotlin.model.Note" />

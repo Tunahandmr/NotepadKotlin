@@ -2,11 +2,11 @@ package com.tunahan.notepadkotlin.util
 
 import com.tunahan.notepadkotlin.R
 
-data class NoteTypes(val image: Int, val name: String) {
-
+data class NoteTypes2(val image: Int, val name: String) {
     object Notes {
 
         private val images = intArrayOf(
+            R.color.transparan,
             R.drawable.gray_circle,
             R.drawable.blue_circle,
             R.drawable.yellow_circle,
@@ -14,6 +14,7 @@ data class NoteTypes(val image: Int, val name: String) {
         )
 
         private val notes = arrayOf(
+            "All Notes",
             "No Category",
             "Personal",
             "Travel",
@@ -37,5 +38,4 @@ data class NoteTypes(val image: Int, val name: String) {
                 return field
             }
     }
-
 }

@@ -1,65 +1,65 @@
 package com.tunahan.notepadkotlin.adapter
 
-import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.tunahan.notepadkotlin.R
 import com.tunahan.notepadkotlin.model.Note
 import com.tunahan.notepadkotlin.view.MainFragmentDirections
 import kotlinx.android.synthetic.main.custom_row.view.*
-import java.util.*
 import kotlin.collections.ArrayList
 
-class ListAdapter:RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
+class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
+    // private var noteEmptyList = emptyList<Note>()
+    var noteList = ArrayList<Note>()
 
-   // private var noteEmptyList = emptyList<Note>()
+    private val colors: Array<String> =
+        arrayOf("#2a22a2", "#f5f5f5", "#b0fffe", "#ffeeb8", "#ffb0b0")
 
-    var countryFilterList = ArrayList<Note>()
-  //  var countryList = ArrayList<Note>()
-    lateinit var mContext: Context
+    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(noteModel: Note, colors: Array<String>, num: Int?) {
 
-    class MyViewHolder(itemView:View):RecyclerView.ViewHolder(itemView) {}
+            itemView.row_layout.setCardBackgroundColor(Color.parseColor(colors[num!!]))
+            itemView.title_id.text = noteModel.title
+            itemView.note_id.text = noteModel.text
+            itemView.date_id.text = noteModel.time
+
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.custom_row,parent,false))
+        return MyViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.custom_row, parent, false)
+        )
     }
 
     override fun getItemCount(): Int {
-        return countryFilterList.size
+        return noteList.size
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentItem = countryFilterList[position]
-        holder.itemView.title_id.text = currentItem.title
-        holder.itemView.note_id.text = currentItem.text
 
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val currentItem = noteList[position]
+        holder.bind(currentItem, colors, currentItem.type)
 
         holder.itemView.row_layout.setOnClickListener {
             val action = MainFragmentDirections.actionMainFragmentToUpdateFragment(currentItem)
             Navigation.findNavController(it).navigate(action)
         }
-
-
     }
 
+    fun setData(note: List<Note>) {
 
-    fun setData(note: List<Note>){
-
-        countryFilterList = note as ArrayList<Note>
+        noteList = note as ArrayList<Note>
         notifyDataSetChanged()
-/*
-        this.countryFilterList = note as ArrayList<Note>
+
+        /*this.countryFilterList = note as ArrayList<Note>
         notifyDataSetChanged()*/
     }
 
-
 }
+

@@ -19,4 +19,4 @@ data class Note(
     val time: String?,
     @ColumnInfo(name = "type")
     val type: Int?
-):Parcelable
+) : Parcelable

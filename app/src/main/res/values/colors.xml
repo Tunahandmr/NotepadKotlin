@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="darkbar">#F6F6F6</color>
-    <color name="lightbar">#F6F6F6</color>
+    <color name="transparan">#00FFFFFF</color>
+    <color name="darkbar">#fff</color>
+    <color name="lightbar">#FFF</color>
+    <color name="buton">#8CDCF3</color>
+    <color name="yellow">#ffeeb8</color>
+    <color name="mavi">#b0fffe</color>
+    <color name="gray">#F5F5F5</color>
+    <color name="red">#ffb0b0</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>

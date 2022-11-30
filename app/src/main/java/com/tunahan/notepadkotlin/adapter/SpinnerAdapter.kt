@@ -9,7 +9,8 @@ import com.tunahan.notepadkotlin.R
 import com.tunahan.notepadkotlin.util.NoteTypes
 import kotlinx.android.synthetic.main.spinner_item.view.*
 
-class NoteArrayAdapter(context: Context, noteList: List<NoteTypes>):ArrayAdapter<NoteTypes>(context,0,noteList) {
+class SpinnerAdapter(context: Context, noteList: List<NoteTypes>) :
+    ArrayAdapter<NoteTypes>(context, 0, noteList) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         return initView(position, convertView, parent)
@@ -20,12 +21,12 @@ class NoteArrayAdapter(context: Context, noteList: List<NoteTypes>):ArrayAdapter
         return initView(position, convertView, parent)
     }
 
-    private fun initView(position: Int,convertView: View?,parent: ViewGroup):View{
+    private fun initView(position: Int, convertView: View?, parent: ViewGroup): View {
 
         val note = getItem(position)
-        val view = LayoutInflater.from(context).inflate(R.layout.spinner_item,parent,false)
+        val view = LayoutInflater.from(context).inflate(R.layout.spinner_item, parent, false)
         view.imageView.setImageResource(note!!.image)
-        view.textView.text =note.name
+        view.textView.text = note.name
 
         return view
     }
