@@ -23,7 +23,7 @@ Screens
 
 | Main Screen | Add Note | Update Note |
 | ------ | ---- | ------ |
-|<img src="https://user-images.githubusercontent.com/100168989/204872751-05d16c65-c0fe-4c24-8d84-e04de80c881c.jpg" width="250" height="500"/>|<img src="https://user-images.githubusercontent.com/100168989/204873564-d1521191-f3da-4db4-b792-1220f1352772.jpg" width="250" height="500"/>|<img src="https://user-images.githubusercontent.com/100168989/204873834-978a2cd1-18b2-4e2f-9459-2c53ab3c4d94.jpg" width="250" height="500"/>|
+|<img src="https://user-images.githubusercontent.com/100168989/204872751-05d16c65-c0fe-4c24-8d84-e04de80c881c.jpg" />|<img src="https://user-images.githubusercontent.com/100168989/204873564-d1521191-f3da-4db4-b792-1220f1352772.jpg" />|<img src="https://user-images.githubusercontent.com/100168989/204873834-978a2cd1-18b2-4e2f-9459-2c53ab3c4d94.jpg"/>|
 
 </br>
 
