@@ -29,4 +29,4 @@ Screens
 
 | Search | Category Filter |
 | --- | ------- |
-|<img src="https://user-images.githubusercontent.com/100168989/204874184-8eac423e-a611-45ce-9371-f3d71f8cda0d.jpg" width="250" height="500"/>|<img src="https://user-images.githubusercontent.com/100168989/204874325-ea382698-49c1-4201-b905-ffa8cf2aa68f.jpg" width="250" height="500"/>|
+|<img src="https://user-images.githubusercontent.com/100168989/204874184-8eac423e-a611-45ce-9371-f3d71f8cda0d.jpg"/>|<img src="https://user-images.githubusercontent.com/100168989/204874325-ea382698-49c1-4201-b905-ffa8cf2aa68f.jpg" />|
